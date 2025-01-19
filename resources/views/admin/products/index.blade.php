@@ -15,7 +15,7 @@
                 @endforeach
             </select>
         </div>
-        <a href="{{ route('products.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <a href="{{ route('admin.products.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Add New Product
         </a>
     </div>
@@ -58,10 +58,10 @@
                 </div>
 
                 <div class="flex justify-end space-x-2">
-                    <a href="{{ route('products.edit', $product) }}" class="text-blue-500 hover:text-blue-700">
+                    <a href="{{ route('admin.products.edit', $product) }}" class="text-blue-500 hover:text-blue-700">
                         <i class="fas fa-edit"></i> Edit
                     </a>
-                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline">
+                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this product?')">

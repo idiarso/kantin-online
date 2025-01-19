@@ -12,17 +12,22 @@ class AdminController extends Controller
     public function dashboard()
     {
         $stats = [
-            'orders' => Order::count(),
-            'products' => Product::count(),
-            'users' => User::count(),
-            'revenue' => Order::where('status', 'completed')->sum('total_amount')
+            'total_sales' => Order::where('status', 'completed')->sum('total_amount'),
+            'total_orders' => Order::count(),
+            'total_products' => Product::count(),
+            'total_users' => User::count(),
         ];
 
-        $recent_orders = Order::with(['user', 'items.product'])
+        $recent_orders = Order::with(['user', 'items'])
             ->latest()
             ->take(5)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recent_orders'));
+        $popular_products = Product::withCount('orderItems')
+            ->orderBy('order_items_count', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact('stats', 'recent_orders', 'popular_products'));
     }
 } 

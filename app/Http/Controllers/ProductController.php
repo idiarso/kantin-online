@@ -12,17 +12,18 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')
-            ->latest()
-            ->paginate(12);
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
         $categories = Category::where('status', 'active')->get();
         
-        return view('products.index', compact('products', 'categories'));
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function create()
     {
         $categories = Category::where('status', 'active')->get();
-        return view('products.create', compact('categories'));
+        return view('admin.products.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -45,22 +46,22 @@ class ProductController extends Controller
         $validated['seller_id'] = auth()->id();
         Product::create($validated);
 
-        return redirect()->route('products.index')
+        return redirect()->route('admin.products.index')
             ->with('success', 'Product created successfully.');
     }
 
     public function edit(Product $product)
     {
         $categories = Category::where('status', 'active')->get();
-        return view('products.edit', compact('product', 'categories'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
-            'name' => 'required|max:255',
-            'description' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'preparation_time' => 'required|integer|min:0',
@@ -69,7 +70,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Delete old image
+            // Delete old image if exists
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
@@ -78,15 +79,19 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully.');
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+        
         $product->delete();
 
-        return redirect()->route('products.index')
+        return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully.');
     }
 }

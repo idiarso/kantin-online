@@ -59,10 +59,14 @@ class User extends Authenticatable
     public static function getAvailableRoles()
     {
         return [
-            'admin',
+            self::ROLE_ADMIN,
+            self::ROLE_KANTIN_ADMIN,
+            self::ROLE_KANTIN_STAFF,
+            self::ROLE_TEACHER,
+            self::ROLE_PARENT,
+            self::ROLE_STUDENT,
             'kasir',
             'owner'
-            // tambahkan role lain jika ada
         ];
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LandingContent;
 use App\Http\Requests\LandingContentRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
@@ -70,5 +71,46 @@ class LandingController extends Controller
             LandingContent::where('id', $id)->update(['order' => $order]);
         }
         return response()->json(['success' => true]);
+    }
+
+    public function content()
+    {
+        return view('admin.landing.content');
+    }
+
+    public function announcements()
+    {
+        return view('admin.landing.announcements');
+    }
+
+    public function updateContent(Request $request)
+    {
+        // Validate and update landing page content
+        $request->validate([
+            'hero_title' => 'required|string|max:255',
+            'hero_description' => 'required|string',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Save the content (implementation depends on your storage method)
+        // ...
+
+        return redirect()->back()->with('success', 'Landing page content updated successfully.');
+    }
+
+    public function updateAnnouncements(Request $request)
+    {
+        // Validate and update announcements
+        $request->validate([
+            'announcements' => 'required|array',
+            'announcements.*.title' => 'required|string|max:255',
+            'announcements.*.content' => 'required|string',
+            'announcements.*.status' => 'required|in:active,inactive'
+        ]);
+
+        // Save the announcements (implementation depends on your storage method)
+        // ...
+
+        return redirect()->back()->with('success', 'Announcements updated successfully.');
     }
 } 

@@ -16,7 +16,7 @@ class Setting extends Model
 
     public static function set($key, $value)
     {
-        static::updateOrCreate(
+        return static::updateOrCreate(
             ['key' => $key],
             ['value' => $value]
         );
