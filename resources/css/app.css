@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles */
+.category-card {
+    @apply relative flex-none w-24 text-center cursor-pointer transition-transform hover:scale-105;
+}
+
+.category-icon {
+    @apply w-16 h-16 mx-auto mb-2 rounded-xl flex items-center justify-center;
+}
+
+.product-card {
+    @apply bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

@@ -1,0 +1,556 @@
+PROPOSAL KANTIN ONLINE SEKOLAH
+"E-KANTIN: Digitalisasi Layanan Kantin Sekolah"
+
+A. LATAR BELAKANG
+Dalam era digital saat ini, penggunaan teknologi informasi telah menjadi bagian integral dalam kehidupan sehari-hari. Sekolah sebagai institusi pendidikan perlu beradaptasi dengan perkembangan teknologi untuk meningkatkan efisiensi layanan, termasuk dalam pengelolaan kantin sekolah. Kantin online hadir sebagai solusi untuk memudahkan siswa dan guru dalam melakukan pemesanan makanan dan minuman secara praktis dan efisien.
+
+B. TUJUAN
+1. Meningkatkan efisiensi pelayanan kantin sekolah
+2. Mengurangi antrian dan kerumunan di kantin
+3. Memudahkan pencatatan dan pengelolaan keuangan kantin
+4. Memberikan pengalaman praktik kewirausahaan digital bagi siswa
+5. Mengoptimalkan waktu istirahat siswa dan guru
+
+C. MANFAAT
+1. Bagi Siswa:
+   - Pemesanan makanan lebih mudah dan efisien
+   - Menghindari antrian panjang
+   - Pembelajaran tentang transaksi digital
+
+2. Bagi Sekolah:
+   - Peningkatan pelayanan kantin
+   - Pencatatan keuangan lebih terstruktur
+   - Monitoring penjualan lebih mudah
+
+3. Bagi Penjual:
+   - Pengelolaan pesanan lebih terorganisir
+   - Peningkatan efisiensi operasional
+   - Laporan penjualan real-time
+
+D. FITUR APLIKASI
+1. Sistem Pemesanan:
+   - Katalog menu digital
+   - Keranjang belanja
+   - Sistem pembayaran digital
+   - Notifikasi status pesanan
+
+2. Manajemen Kantin:
+   - Dashboard penjualan
+   - Manajemen stok
+   - Laporan keuangan
+   - Analisis penjualan
+
+3. Sistem Administrasi:
+   - Manajemen pengguna
+   - Manajemen menu
+   - Pengaturan harga
+   - Laporan transaksi
+
+E. KEBUTUHAN TEKNIS
+1. Hardware:
+   - Server/Hosting
+   - Komputer admin
+   - Printer struk
+   - Smartphone/tablet untuk penjual
+
+2. Software:
+   - Aplikasi web berbasis Laravel
+   - Database MySQL
+   - Sistem operasi Windows/Linux
+   - Browser modern
+
+F. TAHAPAN IMPLEMENTASI
+1. Persiapan (1 bulan):
+   - Analisis kebutuhan
+   - Perancangan sistem
+   - Pembuatan proposal
+
+2. Pengembangan (2 bulan):
+   - Pembuatan aplikasi
+   - Testing sistem
+   - Revisi dan perbaikan
+
+3. Implementasi (1 bulan):
+   - Pelatihan pengguna
+   - Uji coba terbatas
+   - Evaluasi sistem
+
+4. Peluncuran (1 bulan):
+   - Sosialisasi
+   - Implementasi penuh
+   - Monitoring dan evaluasi
+
+G. ANGGARAN
+1. Pengembangan Aplikasi: Rp 15.000.000
+2. Hardware dan Infrastruktur: Rp 10.000.000
+3. Pelatihan dan Sosialisasi: Rp 5.000.000
+4. Biaya Operasional: Rp 5.000.000
+Total Anggaran: Rp 35.000.000
+
+H. PENUTUP
+Kantin online sekolah merupakan inovasi yang akan memberikan manfaat signifikan bagi seluruh warga sekolah. Sistem ini tidak hanya meningkatkan efisiensi pelayanan tetapi juga memberikan pengalaman pembelajaran dalam hal kewirausahaan digital bagi siswa. Dukungan dari seluruh pihak sangat diharapkan untuk kesuksesan implementasi sistem ini.
+
+Hormat kami,
+
+[Nama]
+Koordinator Program E-Kantin
+
+=================
+
+E-KANTIN - STRUKTUR APLIKASI
+
+1. DATABASE TABLES
+----------------
+a. users
+   - id
+   - name
+   - email
+   - password
+   - role (admin, seller, student, teacher)
+   - balance (saldo)
+   - phone
+   - class (untuk siswa)
+   - created_at
+   - updated_at
+
+b. categories
+   - id
+   - name (Makanan Berat, Makanan Ringan, Minuman, dll)
+   - description
+   - icon
+   - status
+   - created_at
+   - updated_at
+
+c. products
+   - id
+   - seller_id (foreign key ke users)
+   - category_id
+   - name
+   - description
+   - price
+   - stock
+   - preparation_time
+   - image
+   - status (available/unavailable)
+   - created_at
+   - updated_at
+
+d. orders
+   - id
+   - user_id
+   - total_amount
+   - status (pending, processing, ready, completed, cancelled)
+   - payment_method
+   - payment_status
+   - pickup_time
+   - note
+   - created_at
+   - updated_at
+
+e. order_items
+   - id
+   - order_id
+   - product_id
+   - quantity
+   - price
+   - subtotal
+   - created_at
+   - updated_at
+
+f. transactions
+   - id
+   - user_id
+   - type (topup, payment, refund)
+   - amount
+   - description
+   - status
+   - created_at
+   - updated_at
+
+2. FITUR UTAMA
+-------------
+a. Autentikasi
+   - Login
+   - Register
+   - Reset Password
+   - Profile Management
+
+b. Manajemen Produk (Seller)
+   - CRUD Produk
+   - Manajemen Stok
+   - Set Status Ketersediaan
+   - Upload Gambar Produk
+
+c. Pemesanan (Student/Teacher)
+   - Lihat Katalog Produk
+   - Keranjang Belanja
+   - Checkout
+   - Riwayat Pesanan
+   - Status Pesanan
+
+d. Pembayaran
+   - Top-up Saldo
+   - Pembayaran dengan Saldo
+   - Riwayat Transaksi
+
+e. Admin Panel
+   - Dashboard Analytics
+   - Manajemen User
+   - Manajemen Kategori
+   - Laporan Penjualan
+   - Manajemen Transaksi
+
+3. STRUKTUR FOLDER (LARAVEL)
+--------------------------
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Auth/
+│   │   ├── Admin/
+│   │   ├── Seller/
+│   │   └── Student/
+│   ├── Middleware/
+│   └── Requests/
+├── Models/
+├── Services/
+└── Repositories/
+
+resources/
+├── views/
+│   ├── auth/
+│   ├── admin/
+│   ├── seller/
+│   └── student/
+├── js/
+└── css/
+
+4. API ENDPOINTS
+--------------
+Authentication:
+- POST /api/auth/login
+- POST /api/auth/register
+- POST /api/auth/logout
+
+Products:
+- GET /api/products
+- POST /api/products
+- GET /api/products/{id}
+- PUT /api/products/{id}
+- DELETE /api/products/{id}
+
+Orders:
+- GET /api/orders
+- POST /api/orders
+- GET /api/orders/{id}
+- PUT /api/orders/{id}/status
+
+Transactions:
+- GET /api/transactions
+- POST /api/transactions/topup
+- GET /api/transactions/{id}
+
+5. ROLES & PERMISSIONS
+--------------------
+a. Admin
+   - Manajemen semua user
+   - Manajemen kategori
+   - Akses laporan
+   - Manajemen transaksi
+
+b. Seller
+   - Manajemen produk sendiri
+   - Melihat dan update pesanan
+   - Akses laporan penjualan sendiri
+
+c. Student/Teacher
+   - Melihat katalog
+   - Membuat pesanan
+   - Manajemen saldo
+   - Melihat riwayat transaksi sendiri
+
+6. TEKNOLOGI YANG DIGUNAKAN
+-------------------------
+- Backend: Laravel 10
+- Frontend: Laravel Blade + Alpine.js
+- Database: MySQL
+- CSS Framework: Tailwind CSS
+- Image Storage: Laravel Storage
+- Authentication: Laravel Sanctum
+- Payment Gateway: Midtrans (opsional)
+- Push Notification: Laravel WebPush
+
+7. KEAMANAN
+----------
+- Laravel Security Features
+- CSRF Protection
+- XSS Prevention
+- SQL Injection Prevention
+- Rate Limiting
+- Input Validation
+- Role-based Access Control
+
+I. STRUKTUR ROLE DAN FITUR
+
+1. Administrator
+   a. Kelola Landing Page
+      - Edit konten dan banner
+      - Pengaturan tampilan
+      - Kelola pengumuman
+
+   b. Kelola Pengguna
+      - CRUD semua tipe pengguna
+      - Reset password
+      - Aktivasi/deaktivasi akun
+
+   c. Kelola Kantin
+      - Pengaturan jam operasional
+      - Kelola kategori menu
+      - Monitor transaksi real-time
+
+   d. Kartu Kantin
+      - Generate QR code
+      - Cetak kartu digital
+      - Batch generation untuk kelas
+
+   e. Kelola Civitas
+      - Import data guru/karyawan
+      - Import data siswa
+      - Kelola data orang tua
+
+   f. Kelola Keuangan
+      - Approve deposit
+      - Input deposit manual
+      - Laporan keuangan komprehensif
+
+2. Admin Kantin
+   a. Manajemen Menu
+      - CRUD menu makanan/minuman
+      - Atur stok dan harga
+      - Kategori menu
+
+   b. Monitoring
+      - Dashboard penjualan
+      - Riwayat transaksi
+      - Analisis menu favorit
+
+   c. Laporan
+      - Laporan penjualan harian
+      - Laporan penjualan per periode
+      - Grafik dan statistik
+
+3. Petugas Kantin
+   a. Point of Sale (POS)
+      - Scan kartu kantin
+      - Input pesanan manual
+      - Proses pembayaran
+
+   b. Manajemen Transaksi
+      - List pesanan aktif
+      - Status pesanan
+      - Riwayat transaksi
+
+   c. Cetak Struk
+      - Print struk transaksi
+      - Reprint struk
+      - Format struk kustom
+
+4. Guru/Karyawan
+   a. Keuangan
+      - Top up saldo
+      - Cek saldo
+      - Riwayat transaksi
+
+   b. Kartu Digital
+      - View QR code
+      - Download kartu digital
+      - Riwayat penggunaan
+
+   c. Profil
+      - Edit data pribadi
+      - Ganti password
+      - Pengaturan notifikasi
+
+5. Wali Murid/Orang Tua
+   a. Manajemen Saldo
+      - Top up saldo anak
+      - Set limit harian
+      - Notifikasi saldo rendah
+
+   b. Monitoring
+      - Riwayat transaksi anak
+      - Laporan penggunaan
+      - Detail pembelian
+
+   c. Profil
+      - Update data pribadi
+      - Kelola data anak
+      - Pengaturan akun
+
+6. Siswa
+   a. Transaksi
+      - Scan QR untuk pembayaran
+      - Riwayat transaksi
+      - Cek saldo
+
+   b. Kartu Digital
+      - View QR code
+      - Download kartu
+      - Status kartu
+
+   c. Profil
+      - Lihat data pribadi
+      - Ganti password
+      - Pengaturan dasar
+
+J. KEBUTUHAN TAMBAHAN
+
+1. Integrasi
+   - SMS Gateway untuk notifikasi
+   - Payment Gateway untuk deposit
+   - Printer thermal untuk struk
+
+2. Keamanan
+   - Rate limiting untuk API
+   - Logging semua aktivitas
+   - Backup otomatis
+
+3. Monitoring
+   - Server health check
+   - Error reporting
+   - Analytics dashboard
+
+   ================
+
+     H. PENUTUP
+  Kantin online sekolah merupakan inovasi yang akan memberikan manfaat signifikan bagi seluruh warga sekolah...
++ 
++ I. STRUKTUR ROLE DAN FITUR
++ 
++ 1. Administrator
++    a. Kelola Landing Page
++       - Edit konten dan banner
++       - Pengaturan tampilan
++       - Kelola pengumuman
++ 
++    b. Kelola Pengguna
++       - CRUD semua tipe pengguna
++       - Reset password
++       - Aktivasi/deaktivasi akun
++ 
++    c. Kelola Kantin
++       - Pengaturan jam operasional
++       - Kelola kategori menu
++       - Monitor transaksi real-time
++ 
++    d. Kartu Kantin
++       - Generate QR code
++       - Cetak kartu digital
++       - Batch generation untuk kelas
++ 
++    e. Kelola Civitas
++       - Import data guru/karyawan
++       - Import data siswa
++       - Kelola data orang tua
++ 
++    f. Kelola Keuangan
++       - Approve deposit
++       - Input deposit manual
++       - Laporan keuangan komprehensif
++ 
++ 2. Admin Kantin
++    a. Manajemen Menu
++       - CRUD menu makanan/minuman
++       - Atur stok dan harga
++       - Kategori menu
++ 
++    b. Monitoring
++       - Dashboard penjualan
++       - Riwayat transaksi
++       - Analisis menu favorit
++ 
++    c. Laporan
++       - Laporan penjualan harian
++       - Laporan penjualan per periode
++       - Grafik dan statistik
++ 
++ 3. Petugas Kantin
++    a. Point of Sale (POS)
++       - Scan kartu kantin
++       - Input pesanan manual
++       - Proses pembayaran
++ 
++    b. Manajemen Transaksi
++       - List pesanan aktif
++       - Status pesanan
++       - Riwayat transaksi
++ 
++    c. Cetak Struk
++       - Print struk transaksi
++       - Reprint struk
++       - Format struk kustom
++ 
++ 4. Guru/Karyawan
++    a. Keuangan
++       - Top up saldo
++       - Cek saldo
++       - Riwayat transaksi
++ 
++    b. Kartu Digital
++       - View QR code
++       - Download kartu digital
++       - Riwayat penggunaan
++ 
++    c. Profil
++       - Edit data pribadi
++       - Ganti password
++       - Pengaturan notifikasi
++ 
++ 5. Wali Murid/Orang Tua
++    a. Manajemen Saldo
++       - Top up saldo anak
++       - Set limit harian
++       - Notifikasi saldo rendah
++ 
++    b. Monitoring
++       - Riwayat transaksi anak
++       - Laporan penggunaan
++       - Detail pembelian
++ 
++    c. Profil
++       - Update data pribadi
++       - Kelola data anak
++       - Pengaturan akun
++ 
++ 6. Siswa
++    a. Transaksi
++       - Scan QR untuk pembayaran
++       - Riwayat transaksi
++       - Cek saldo
++ 
++    b. Kartu Digital
++       - View QR code
++       - Download kartu
++       - Status kartu
++ 
++    c. Profil
++       - Lihat data pribadi
++       - Ganti password
++       - Pengaturan dasar
++ 
++ J. KEBUTUHAN TAMBAHAN
++ 
++ 1. Integrasi
++    - SMS Gateway untuk notifikasi
++    - Payment Gateway untuk deposit
++    - Printer thermal untuk struk
++ 
++ 2. Keamanan
++    - Rate limiting untuk API
++    - Logging semua aktivitas
++    - Backup otomatis
++ 
++ 3. Monitoring
++    - Server health check
++    - Error reporting
++    - Analytics dashboard
