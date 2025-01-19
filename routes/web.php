@@ -27,6 +27,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Customer\ProductController as CustomerProductController;
 
 // Home & Public Routes
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
@@ -159,4 +160,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Menu Routes
     Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+});
+
+// Customer Routes
+Route::middleware(['auth'])->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/products', [CustomerProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{product}', [CustomerProductController::class, 'show'])->name('products.show');
+    Route::post('/products/{product}/cart', [CustomerProductController::class, 'addToCart'])->name('products.addToCart');
 });

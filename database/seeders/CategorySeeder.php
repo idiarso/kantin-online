@@ -13,28 +13,31 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'name' => 'Makanan Berat',
-                'description' => 'Nasi dan lauk pauk'
+                'description' => 'Menu makanan berat seperti nasi dan mie',
+                'status' => true,
             ],
             [
-                'name' => 'Makanan Ringan',
-                'description' => 'Snack dan cemilan'
+                'name' => 'Snack',
+                'description' => 'Menu makanan ringan dan cemilan',
+                'status' => true,
             ],
             [
                 'name' => 'Minuman',
-                'description' => 'Aneka minuman segar'
+                'description' => 'Menu minuman dingin dan panas',
+                'status' => true,
             ],
             [
                 'name' => 'Dessert',
-                'description' => 'Makanan penutup'
-            ]
+                'description' => 'Menu makanan penutup dan pencuci mulut',
+                'status' => true,
+            ],
         ];
 
         foreach ($categories as $category) {
-            Category::create([
-                'name' => $category['name'],
-                'slug' => Str::slug($category['name']),
-                'description' => $category['description']
-            ]);
+            if (!Category::where('name', $category['name'])->exists()) {
+                $category['slug'] = Str::slug($category['name']);
+                Category::create($category);
+            }
         }
     }
 } 
